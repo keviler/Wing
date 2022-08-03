@@ -10,15 +10,14 @@ import SwiftMessages
 
 public extension Wing {
     struct Message {
-        static func showAlert(_ info: String) {
-            
+        public static func showAlert(_ info: String) {
             showMSG(info)
         }
         
-        static func showError(_ errorMsg: String) {
+        public static func showError(_ errorMsg: String) {
             showMSG(errorMsg)
         }
-        static func showMSG(_ msg: String) {
+        public static func showMSG(_ msg: String) {
             
             let label = UILabel()
             label.text = msg
@@ -42,13 +41,13 @@ public extension Wing {
 
         }
 
-        static func showSuccess(_ successMsg: String) {
+        public static func showSuccess(_ successMsg: String) {
             showMSG(successMsg)
         }
     }
     
     struct View  {
-        static var systemBlur: UIView {
+        public static var systemBlur: UIView {
             get {
                 let blurEffect = UIBlurEffect(style: .systemChromeMaterial)
                 let blurView = UIVisualEffectView(effect: blurEffect)
