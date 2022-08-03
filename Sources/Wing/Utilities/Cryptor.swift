@@ -51,7 +51,7 @@
 //    }
 //}
 //
-//extension AES {
+//public extension AES {
 //    enum Error: Swift.Error {
 //        case invalidKeySize
 //        case generateRandomIVFailed
@@ -61,7 +61,7 @@
 //    }
 //}
 //
-//private extension AES {
+//private public extension AES {
 //
 //    func generateRandomIV(for data: inout Data) throws {
 //
@@ -84,7 +84,7 @@
 //    }
 //}
 //
-//extension AES: Cryptable {
+//public extension AES: Cryptable {
 //
 //    func encrypt(_ string: String) throws -> Data {
 //        let dataToEncrypt = Data(string.utf8)

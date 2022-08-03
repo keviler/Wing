@@ -184,7 +184,7 @@ struct RoundedCorner: Shape {
 }
 #endif
 
-//extension View {
+//public extension View {
 //    func sheet<PopupContent: View>(
 //        isPresented: Binding<Bool>,
 //        title: String = "",

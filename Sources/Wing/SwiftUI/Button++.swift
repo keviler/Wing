@@ -19,7 +19,7 @@ struct CapsuleButtonStyle: ButtonStyle {
     }
 }
 
-extension Button {
+public extension Button {
     func capsuleStyle(_ disabled: Bool = true) -> some View {
         buttonStyle(CapsuleButtonStyle(disabled: disabled))
             .disabled(disabled)

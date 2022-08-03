@@ -11,7 +11,7 @@
  */
 import Foundation
 
-extension URLRequest {
+public extension URLRequest {
     init?(string: String) {
         guard let url = URL(string: string) else {
             return nil

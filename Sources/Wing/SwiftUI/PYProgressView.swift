@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PYProgressView: View {
+public struct PYProgressView: View {
     
     private struct FKUIProgressView: UIViewRepresentable {
         @State var value: Double
@@ -25,7 +25,7 @@ struct PYProgressView: View {
     }
     @State private var trackColor: Color?
     @State var value: Double
-    var body: some View {
+    public var body: some View {
         ZStack {
             if #available(iOS 14.0, *) {
                 ProgressView(value: value)
@@ -38,7 +38,7 @@ struct PYProgressView: View {
     }
 }
 
-extension PYProgressView {
+public extension PYProgressView {
     func trackColor(_ color: Color) -> PYProgressView {
         trackColor = color
         return self

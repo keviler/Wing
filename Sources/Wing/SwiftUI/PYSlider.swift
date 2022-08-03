@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PYSlider: UIViewRepresentable {
+public struct PYSlider: UIViewRepresentable {
     @State private var thumbTintColor: Color = Color.systemYellow
     @State private var trackBackgroundColor: Color = Color.systemGray5
     @State private var trackColor: Color = Color.systemYellow
@@ -18,7 +18,7 @@ struct PYSlider: UIViewRepresentable {
     var onDragging: ((Double)->Void)?
     var dragEnded: ((Double)->Void)?
 
-    class Coordinator {
+    public class Coordinator {
         var dragBegan: ((Double)->Void)?
         var onDragging: ((Double)->Void)?
         var dragEnded: ((Double)->Void)?
@@ -44,13 +44,13 @@ struct PYSlider: UIViewRepresentable {
         }
     }
 
-    func makeUIView(context: Context) -> UISlider {
+    public func makeUIView(context: Context) -> UISlider {
         let sider = UISlider()
         sider.addTarget(context.coordinator, action: #selector(Coordinator.onValueChanged(_:event:)), for: .valueChanged)
         return sider
     }
     
-    func updateUIView(_ uiView: UISlider, context: Context) {
+    public func updateUIView(_ uiView: UISlider, context: Context) {
         if thumbHidden {
             uiView.setThumbImage(UIImage(), for: .normal)
             uiView.setThumbImage(UIImage(), for: .disabled)
@@ -65,13 +65,13 @@ struct PYSlider: UIViewRepresentable {
         }
     }
     
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(dragBegan, onDragging: onDragging, dragEnded: dragEnded)
     }
-    typealias UIViewType = UISlider
+    public typealias UIViewType = UISlider
 }
 
-extension PYSlider {
+public extension PYSlider {
     func thumbHidden(_ hidden: Bool) -> PYSlider {
         thumbHidden = hidden
         return self

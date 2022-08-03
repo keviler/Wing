@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Encodable {
+public extension Encodable {
     var jsonData: Data? {
         get {
             do {

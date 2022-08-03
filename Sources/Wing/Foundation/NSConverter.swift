@@ -9,12 +9,12 @@
 import Foundation
 
 //MARK: NSString
-extension String {
+public extension String {
     var ns: NSString {
         get { return self as NSString}
     }
 }
 
-extension NSRange {
+public extension NSRange {
     
 }

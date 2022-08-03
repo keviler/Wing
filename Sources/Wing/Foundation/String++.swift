@@ -208,7 +208,7 @@ public extension String {
 }
 
 //MARK: URL, Request
-extension String {
+public extension String {
     var url: URL? {
         get{
             return URL(string: self)

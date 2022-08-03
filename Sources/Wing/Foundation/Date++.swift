@@ -92,7 +92,7 @@ public extension Date {
 }
 
 //MARK: Date is XXX
-extension Date {
+public extension Date {
     var isLeapMonth: Bool? {
         get { return Calendar.current.dateComponents(in: TimeZone.current, from: self).isLeapMonth }
     }

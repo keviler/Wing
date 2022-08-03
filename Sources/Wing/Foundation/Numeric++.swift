@@ -67,7 +67,7 @@ public extension BytesConvertable where Self: BinaryFloatingPoint  {
 }
 
 
-extension NumericConvert {
+public extension NumericConvert {
     var hm: String {
         return DateFormatter.hmFormatter.string(from: Date(timeIntervalSinceReferenceDate: self.double))
     }
@@ -91,14 +91,14 @@ extension NumericConvert {
 
 }
 
-struct FKCurrency {
-    private var value: Double?
-    init(_ value: Double?) {
+public struct FKCurrency {
+    public private(set) var value: Double?
+    public init(_ value: Double?) {
         self.value = value
     }
 }
 
-extension FKCurrency {
+public extension FKCurrency {
     var full: String {
         get {
             let number = NSNumber(value: self.value ?? 0)
