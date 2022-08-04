@@ -14,3 +14,10 @@ public extension UINavigationController {
         interactivePopGestureRecognizer?.delegate = nil
     }
 }
+
+public extension UINavigationController {
+    
+    @objc func popViewControllerWithAnimation() {
+        popViewController(animated: true)
+    }
+}
