@@ -13,4 +13,9 @@ public extension Image {
             .font(.caption.weight(.bold))
             .foregroundColor(Color(UIColor.tertiaryLabel))
     }
+    
+    static var backward: some View {
+        Image(systemName: "chevron.backward")
+            .foregroundColor(Color(UIColor.label))
+    }
 }

@@ -359,3 +359,14 @@ public extension View {
             }
     }
 }
+
+
+public extension View {
+    func hideNavigationBackButton() -> some View {
+        introspectViewController(customize: { con in
+            let backItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self.nav, action: #selector(UINavigationController.popViewControllerWithAnimation))
+            backItem.tintColor = .label
+            con.navigationItem.leftBarButtonItem = backItem
+        })
+    }
+}

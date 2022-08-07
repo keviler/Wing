@@ -10,10 +10,12 @@ import SwiftUI
 
 public extension Color {
     init(_ hex: String) {
+        var hex = hex.capitalized
+        hex = hex.replacingOccurrences(of: "#", with: "")
+        hex = hex.replacingOccurrences(of: "0X", with: "")
         let scanner = Scanner(string: hex)
         var rgbValue: UInt64 = 0
         scanner.scanHexInt64(&rgbValue)
-
         let r = (rgbValue & 0xff0000) >> 16
         let g = (rgbValue & 0xff00) >> 8
         let b = rgbValue & 0xff
