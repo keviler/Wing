@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftMessages
+import SwiftUI
 
 public extension Wing {
     struct Message {
@@ -55,5 +56,20 @@ public extension Wing {
             }
         }
     }
+    
 }
 
+
+//public extension Wing {
+//    struct Sheet: ViewModifier {
+//
+//    }
+//
+//}
+//
+//public extension Wing {
+//    struct Tip: ViewModifier {
+//
+//    }
+//
+//}
