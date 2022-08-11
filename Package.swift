@@ -18,7 +18,7 @@ let package = Package(
          .package(url: "https://github.com/CoderMJLee/MJRefresh.git", branch: "master"),
          .package(url: "https://github.com/SwiftKickMobile/SwiftMessages.git", branch: "master"),
          .package(url: "https://github.com/siteline/SwiftUI-Introspect.git", branch: "master"),
-
+         .package(url: "https://github.com/apple/swift-algorithms.git", branch: "main"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -28,7 +28,7 @@ let package = Package(
             dependencies: ["SwiftUIX",
                           "MJRefresh",
                           "SwiftMessages",
-                           .product(name: "Introspect", package: "SwiftUI-Introspect")]),
+                           .product(name: "Algorithms", package: "swift-algorithms")]),
         .testTarget(
             name: "WingTests",
             dependencies: ["Wing"]),
