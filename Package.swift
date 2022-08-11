@@ -28,6 +28,7 @@ let package = Package(
             dependencies: ["SwiftUIX",
                           "MJRefresh",
                           "SwiftMessages",
+                           .product(name: "Introspect", package: "SwiftUI-Introspect"),
                            .product(name: "Algorithms", package: "swift-algorithms")]),
         .testTarget(
             name: "WingTests",
