@@ -19,7 +19,7 @@ public struct WGrid<Data, Cell: View,
     private let showIndicators: Bool
     private var layout: WGridLayout = WGridLayout(columns: 3, innerSpacing: 10, lineSpacing: 10)
     private var isScrollEnabled: Bool = true
-    private var contentInsects: UIEdgeInsets = .zero
+    private var contentInsects: EdgeInsets = .zero
 
     private let data: Data
     private let cell: (Data.Element.Items.Element) -> Cell
@@ -65,10 +65,7 @@ public struct WGrid<Data, Cell: View,
                 
             }
         }
-        .padding(.leading, contentInsects.left)
-        .padding(.trailing, contentInsects.right)
-        .padding(.top, contentInsects.top)
-        .padding(.bottom, contentInsects.bottom)
+        .padding(contentInsects)
    }
     private func chunkSection(_ sectionItems: Data.Element.Items, by size: Int) -> [[Data.Element.Items.Element]] {
         return sectionItems.chunks(ofCount: layout.columns).map(Array.init)
@@ -187,7 +184,7 @@ public extension WGrid {
         newSelf.isScrollEnabled = enabled
         return newSelf
     }
-    func contentInsets(_ insets: UIEdgeInsets) -> Self {
+    func contentInsets(_ insets: EdgeInsets) -> Self {
         var newSelf = self
         newSelf.contentInsects = insets
         return newSelf
