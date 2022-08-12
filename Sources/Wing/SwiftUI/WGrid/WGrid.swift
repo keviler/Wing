@@ -31,7 +31,7 @@ public struct WGrid<Data, Cell: View,
     public var body : some View {
       GeometryReader { geometry in
         Group {
-          if !self.data.isEmpty || gridHeaderView == nil {
+          if self.data.isEmpty && gridHeaderView == nil {
               if self.isScrollEnabled {
                 ScrollView(axes,
                            showsIndicators: self.showIndicators) {
