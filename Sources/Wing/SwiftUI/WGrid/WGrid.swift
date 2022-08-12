@@ -65,7 +65,6 @@ public struct WGrid<Data, Cell: View,
                 
             }
         }
-        .padding(contentInsects)
    }
     private func chunkSection(_ sectionItems: Data.Element.Items, by size: Int) -> [[Data.Element.Items.Element]] {
         return sectionItems.chunks(ofCount: layout.columns).map(Array.init)
@@ -86,6 +85,7 @@ public struct WGrid<Data, Cell: View,
                 }
             }
         }
+        .padding(contentInsects)
     }
     
     private func rowView(for elements: [Data.Element.Items.Element]) -> some View {
