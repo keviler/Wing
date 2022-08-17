@@ -11,6 +11,7 @@
 		98264CB028ACC8D500C1C39E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98264CAF28ACC8D500C1C39E /* ContentView.swift */; };
 		98264CB228ACC8D600C1C39E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98264CB128ACC8D600C1C39E /* Assets.xcassets */; };
 		98264CB628ACC8D600C1C39E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98264CB528ACC8D600C1C39E /* Preview Assets.xcassets */; };
+		989C6E7128AD350C003FFD6D /* Wing in Frameworks */ = {isa = PBXBuildFile; productRef = 989C6E7028AD350C003FFD6D /* Wing */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				989C6E7128AD350C003FFD6D /* Wing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +42,7 @@
 				98264CBC28ACC8EE00C1C39E /* Packages */,
 				98264CAC28ACC8D500C1C39E /* WingDemo */,
 				98264CAB28ACC8D500C1C39E /* Products */,
+				989C6E6F28AD350C003FFD6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +82,13 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		989C6E6F28AD350C003FFD6D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -95,6 +105,9 @@
 			dependencies = (
 			);
 			name = WingDemo;
+			packageProductDependencies = (
+				989C6E7028AD350C003FFD6D /* Wing */,
+			);
 			productName = WingDemo;
 			productReference = 98264CAA28ACC8D500C1C39E /* WingDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -364,6 +377,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		989C6E7028AD350C003FFD6D /* Wing */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Wing;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 98264CA228ACC8D500C1C39E /* Project object */;
 }

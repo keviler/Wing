@@ -88,6 +88,16 @@ public struct WGrid<Data, Cell: View,
     
     private func rowView(for elements: [Data.Element.Items.Element]) -> some View {
         HStack(spacing: layout.innerSpacing) {
+            if layout.spareSpace || elements.count == layout.columns {
+                spareSpaceRowView(for: elements)
+            } else {
+                stretchingRowView(for: elements)
+            }
+        }
+    }
+
+    private func spareSpaceRowView(for elements: [Data.Element.Items.Element]) -> some View {
+        Group {
             ForEach(elements) { element in
                 cell(element)
                     .frame(maxWidth: .infinity)
@@ -99,6 +109,25 @@ public struct WGrid<Data, Cell: View,
                 }
             }
         }
+    }
+    private func stretchingRowView(for elements: [Data.Element.Items.Element]) -> some View {
+        GeometryReader { proxy in
+            HStack(spacing: layout.innerSpacing) {
+                ForEach(0..<elements.count - 1) { index in
+                    cell(elements[index])
+                        .frame(width: widthForItem(for: elements, in: proxy))
+                }
+                if let last = elements.last {
+                    cell(last)
+                        .frame(maxWidth: .infinity)
+                }
+        }
+    }
+    }
+
+    private func widthForItem(for elements: [Data.Element.Items.Element], in proxy: GeometryProxy) -> CGFloat {
+        let width = proxy.frame(in: .local).width
+        return (width  - CGFloat((layout.columns - 1)) * layout.innerSpacing).cgFloat / layout.columns.cgFloat
     }
 
 }

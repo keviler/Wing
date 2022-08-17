@@ -11,10 +11,12 @@ public struct WGridLayout {
     public let columns: Int
     public let innerSpacing: CGFloat
     public let lineSpacing: CGFloat
-    
-    public init(columns: Int, innerSpacing: CGFloat, lineSpacing: CGFloat) {
+    public let spareSpace: Bool
+
+    public init(columns: Int, innerSpacing: CGFloat, lineSpacing: CGFloat, spareSpace: Bool = true) {
         self.columns = columns
         self.innerSpacing = innerSpacing
         self.lineSpacing = lineSpacing
+        self.spareSpace = spareSpace
     }
 }
