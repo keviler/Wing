@@ -19,7 +19,7 @@ public struct PYProgressView: View {
         }
         func updateUIView(_ uiView: UIProgressView, context: Context) {
             uiView.progress = Float(value)
-            uiView.tintColor = trackColor?.toUIColor()
+//            uiView.tintColor = trackColor?.toUIColor()
         }
 
     }
@@ -30,7 +30,7 @@ public struct PYProgressView: View {
             if #available(iOS 14.0, *) {
                 ProgressView(value: value)
                     .progressViewStyle(.linear)
-                    .tintColor(trackColor)
+//                    .tintColor(trackColor)
             } else {
                 PYProgressView(value: value)
             }

@@ -85,7 +85,7 @@ public enum Digest {
         guard let data = data else { return nil }
         var digestData = Data(count: self.length)
 
-        _ = digestData.withUnsafeMutableBytes { digestBytes in
+        digestData.withUnsafeMutableBytes { digestBytes in
             data.withUnsafeBytes { messageBytes in
                 if let messageBytesBaseAddress = messageBytes.baseAddress,
                     let digestBytesBaseAddress = digestBytes.bindMemory(to: UInt8.self).baseAddress {

@@ -8,9 +8,9 @@
 import SwiftUI
 
 public struct PYSlider: UIViewRepresentable {
-    @State private var thumbTintColor: Color = Color.systemYellow
-    @State private var trackBackgroundColor: Color = Color.systemGray5
-    @State private var trackColor: Color = Color.systemYellow
+    @State private var thumbTintColor: Color = Color.accentColor
+    @State private var trackBackgroundColor: Color = Color(UIColor.systemGray5)
+    @State private var trackColor: Color = Color.accentColor
     var value: Double
     @State private var thumbSize: CGSize = CGSize(width: 15, height: 15)
     @State private var thumbHidden: Bool = false
@@ -58,8 +58,8 @@ public struct PYSlider: UIViewRepresentable {
         } else {
             uiView.setThumbImage(UIImage(named: "slider.thumb"), for: .normal)
         }
-        uiView.minimumTrackTintColor = trackColor.toUIColor()
-        uiView.maximumTrackTintColor = trackBackgroundColor.toUIColor()
+//        uiView.minimumTrackTintColor = trackColor.toUIColor()
+//        uiView.maximumTrackTintColor = trackBackgroundColor.toUIColor()
         if !uiView.isTracking {
             uiView.value = Float(value)
         }
@@ -81,7 +81,7 @@ public extension PYSlider {
         return self
     }
     
-    func thumbColor(_ color: Color = Color.systemYellow) -> PYSlider {
+    func thumbColor(_ color: Color = Color.accentColor) -> PYSlider {
         thumbTintColor = color
         return self
     }

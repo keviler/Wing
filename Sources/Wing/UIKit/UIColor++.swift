@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SwiftUIX
 
 //MARK: color
 public protocol colorable {
@@ -29,7 +28,7 @@ public extension UIColor {
 
     var image: UIImage? { get { return self.image() } }
 
-    func image(with size: CGSize = Screen.size) -> UIImage? {
+    func image(with size: CGSize = UIScreen.main.bounds.size) -> UIImage? {
         UIGraphicsBeginImageContext(size)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.setFillColor(self.cgColor)

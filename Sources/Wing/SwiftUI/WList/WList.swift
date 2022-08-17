@@ -1,21 +1,21 @@
 //
-//  WGrid.swift
+//  WList.swift
+//  
 //
-//
-//  Created by 周朋毅 on 2022/8/10.
+//  Created by 周朋毅 on 2022/8/17.
 //
 
 import SwiftUI
 import Algorithms
 
 @available(iOS 13.0, OSX 10.15, *)
-public struct WGrid<Data, Cell: View,
+public struct WList<Data, Cell: View,
                         Header: View,
                         Footer: View,
-                        GridHeaderView: View>: View where Data: RandomAccessCollection, Data.Element: WSectional, Data.Element.SectionKey : Hashable, Data.Element.Items: RandomAccessCollection, Data.Element.Items.Element: Identifiable {
+                        HeaderView: View,
+                        FooterView: View>: View where Data: RandomAccessCollection, Data.Element: WSectional, Data.Element.SectionKey : Hashable, Data.Element.Items: RandomAccessCollection, Data.Element.Items.Element: Identifiable {
     private let axes: Axis.Set
     private let showIndicators: Bool
-    private var layout: WGridLayout = WGridLayout(columns: 3, innerSpacing: 10, lineSpacing: 10)
     private var isScrollEnabled: Bool = true
     private var contentInsects: EdgeInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
 
@@ -23,87 +23,77 @@ public struct WGrid<Data, Cell: View,
     private let cell: (Data.Element.Items.Element) -> Cell
     private let header: (Data.Element.SectionKey) -> Header
     private let footer: (Data.Element.SectionKey) -> Footer
-    private var gridHeaderView: GridHeaderView? = nil
+    private var headerView: HeaderView? = nil
+    private var footerView: FooterView? = nil
 
   
     public var body : some View {
-      GeometryReader { geometry in
         Group {
-          if !self.data.isEmpty || gridHeaderView != nil {
+          if !self.data.isEmpty || headerView != nil || footerView != nil {
               if self.isScrollEnabled {
                 ScrollView(axes,
                            showsIndicators: self.showIndicators) {
-                  self.contentView(in: geometry)
+                  contentView
                 }
               } else {
-                  self.contentView(in: geometry)
+                  contentView
               }
             }
         }
-      }
     }
-    private func contentView(in geometry: GeometryProxy) -> some View {
+    private var contentView: some View {
         Group {
             if axes == .vertical {
-                VStack(spacing: 0) {
-                    if let gridHeaderView = gridHeaderView {
-                        gridHeaderView
+                if #available(iOS 14.0, *) {
+                    LazyVStack(spacing: 0) {
+                        verticalContentView()
                     }
-                    ForEach(self.data, id: \.key) { section in
-                        VStack(spacing: 0) {
-                            header(section.key)
-                                .frame(width: geometry.frame(in: .local).width)
-                            sectionView(for: section.items)
-                            footer(section.key)
-                                .frame(width: geometry.frame(in: .local).width)
-                        }
+                } else {
+                    VStack(spacing: 0) {
+                        verticalContentView()
                     }
                 }
             } else {
-                
+                if #available(iOS 14.0, *) {
+                    LazyHStack(spacing: 0) {
+                        verticalContentView()
+                    }
+                } else {
+                    HStack(spacing: 0) {
+                        verticalContentView()
+                    }
+                }
             }
         }
    }
-    private func chunkSection(_ sectionItems: Data.Element.Items, by size: Int) -> [[Data.Element.Items.Element]] {
-        return sectionItems.chunks(ofCount: layout.columns).map(Array.init)
-    }
-    
-    private func sectionView(for items: Data.Element.Items) -> some View {
+    private func verticalContentView() -> some View {
         Group {
-            if layout.columns == 1 {
-                ForEach(items) { item in
-                    cell(item)
+            if let headerView = headerView {
+                headerView
+            }
+            ForEach(self.data, id: \.key) { section in
+                VStack(spacing: 0) {
+                    header(section.key)
                         .frame(maxWidth: .infinity)
-                }
-            } else {
-                VStack(spacing: layout.lineSpacing) {
-                    ForEach(0..<chunkSection(items, by: layout.columns).count, id: \.self) { index in
-                        rowView(for: chunkSection(items, by: layout.columns)[index])
+                    ForEach(section.items) { item in
+                        cell(item)
+                            .frame(maxWidth: .infinity)
                     }
-                }
-            }
-        }
-        .padding(contentInsects)
-    }
-    
-    private func rowView(for elements: [Data.Element.Items.Element]) -> some View {
-        HStack(spacing: layout.innerSpacing) {
-            ForEach(elements) { element in
-                cell(element)
-                    .frame(maxWidth: .infinity)
-            }
-            if elements.count < layout.columns {
-                ForEach(0..<(layout.columns - elements.count), id: \.self) { _ in
-                    Color.clear
+                    .padding(contentInsects)
+                    footer(section.key)
                         .frame(maxWidth: .infinity)
                 }
             }
+            if let footerView = footerView {
+                footerView
+            }
+
         }
     }
 
 }
 
-public extension WGrid {
+public extension WList {
     
     init(_ axes: Axis.Set = .vertical,
          showIndicators: Bool = true,
@@ -159,7 +149,7 @@ public extension WGrid {
     
 }
 
-public extension WGrid {
+public extension WList {
     init<Items>(_ items: Items,
                 @ViewBuilder cell: @escaping (Data.Element.Items.Element) -> Cell) where Items: RandomAccessCollection, Items.Element: Identifiable,
     Header == EmptyView, Footer == EmptyView,
@@ -171,12 +161,7 @@ public extension WGrid {
     }
 }
 
-public extension WGrid {
-    func layout(_ layout: WGridLayout) -> Self {
-        var newSelf = self
-        newSelf.layout = layout
-        return newSelf
-    }
+public extension WList {
     func isScrollEnabled(_ enabled: Bool) -> Self {
         var newSelf = self
         newSelf.isScrollEnabled = enabled
@@ -190,10 +175,16 @@ public extension WGrid {
 }
 
 
-public extension WGrid {
-    func gridHeaderView(@ViewBuilder gridHeaderView: ()->GridHeaderView) -> Self {
+public extension WList {
+    func headerView(@ViewBuilder headerView: ()->HeaderView) -> Self {
         var newSelf = self
-        newSelf.gridHeaderView = gridHeaderView()
+        newSelf.headerView = headerView()
         return newSelf
     }
+    func footerView(@ViewBuilder footerView: ()->FooterView) -> Self {
+        var newSelf = self
+        newSelf.footerView = footerView()
+        return newSelf
+    }
+
 }

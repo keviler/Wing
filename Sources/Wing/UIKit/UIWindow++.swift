@@ -17,10 +17,10 @@ public extension UIWindow {
                 .first?.windows
                 .filter({$0.isKeyWindow}).first
     }
-    class var topViewController: UIViewController? {
-        key?.rootViewController?.topmostViewController
-    }
-    class var topNavigationController: UINavigationController? {
-        topViewController?.navigationController
-    }
+//    class var topViewController: UIViewController? {
+//        key?.rootViewController?.topmostViewController
+//    }
+//    class var topNavigationController: UINavigationController? {
+//        topViewController?.navigationController
+//    }
 }

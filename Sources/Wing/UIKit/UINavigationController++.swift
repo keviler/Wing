@@ -9,7 +9,7 @@ import UIKit
 
 //MARK: fix interactive pop gesture useless issue
 public extension UINavigationController {
-    override open func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = nil
     }
