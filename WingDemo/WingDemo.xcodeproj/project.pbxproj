@@ -14,6 +14,7 @@
 		98453CB228ADD644007FBDD0 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98453CB128ADD644007FBDD0 /* GridView.swift */; };
 		98453CB428ADD67A007FBDD0 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98453CB328ADD67A007FBDD0 /* ListView.swift */; };
 		9895332F28ADE55A000F22CC /* ListNormalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9895332E28ADE55A000F22CC /* ListNormalView.swift */; };
+		9895333E28AE30AD000F22CC /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 9895333D28AE30AD000F22CC /* SwiftUIX */; };
 		989C6E7128AD350C003FFD6D /* Wing in Frameworks */ = {isa = PBXBuildFile; productRef = 989C6E7028AD350C003FFD6D /* Wing */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				989C6E7128AD350C003FFD6D /* Wing in Frameworks */,
+				9895333E28AE30AD000F22CC /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +118,7 @@
 			name = WingDemo;
 			packageProductDependencies = (
 				989C6E7028AD350C003FFD6D /* Wing */,
+				9895333D28AE30AD000F22CC /* SwiftUIX */,
 			);
 			productName = WingDemo;
 			productReference = 98264CAA28ACC8D500C1C39E /* WingDemo.app */;
@@ -145,6 +148,9 @@
 				Base,
 			);
 			mainGroup = 98264CA128ACC8D500C1C39E;
+			packageReferences = (
+				9895333C28AE30AD000F22CC /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+			);
 			productRefGroup = 98264CAB28ACC8D500C1C39E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -390,7 +396,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		9895333C28AE30AD000F22CC /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		9895333D28AE30AD000F22CC /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9895333C28AE30AD000F22CC /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
+		};
 		989C6E7028AD350C003FFD6D /* Wing */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Wing;

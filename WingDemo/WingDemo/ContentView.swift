@@ -34,7 +34,10 @@ struct ContentView: View {
                 .frame(height: 100)
 
             }
-
+            .background(LinearGradient(stops: [.init(color: Color("#7378FF"), location: 0),
+                                               .init(color: Color("#EBFCFF"), location: 0.32),
+                                               .init(color: Color("#F5F5F5"), location: 0.32),
+                                               .init(color: Color("#F5F5F5"), location: 1)], startPoint: .top, endPoint: .bottom))
         }
     }
 }

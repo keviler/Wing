@@ -61,6 +61,7 @@ public struct WList<Data, Cell: View,
         Group {
             if let headerView = headerView {
                 headerView
+                    .frame(maxHeight: .infinity)
             }
             ForEach(self.data, id: \.key) { section in
                 VStack(spacing: 0) {
@@ -83,9 +84,11 @@ public struct WList<Data, Cell: View,
             VStack(spacing: 0) {
                 cell(item)
                     .frame(maxWidth: .infinity)
-                if index < items.count - 1 {
-                    Divider()
-                        .frame(maxWidth: .infinity)
+                if separatorStyle == .singleLine {
+                    if index < items.count - 1 {
+                        Divider()
+                            .frame(maxWidth: .infinity)
+                    }
                 }
             }
         }
