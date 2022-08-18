@@ -11,6 +11,9 @@
 		98264CB028ACC8D500C1C39E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98264CAF28ACC8D500C1C39E /* ContentView.swift */; };
 		98264CB228ACC8D600C1C39E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98264CB128ACC8D600C1C39E /* Assets.xcassets */; };
 		98264CB628ACC8D600C1C39E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98264CB528ACC8D600C1C39E /* Preview Assets.xcassets */; };
+		98453CB228ADD644007FBDD0 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98453CB128ADD644007FBDD0 /* GridView.swift */; };
+		98453CB428ADD67A007FBDD0 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98453CB328ADD67A007FBDD0 /* ListView.swift */; };
+		9895332F28ADE55A000F22CC /* ListNormalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9895332E28ADE55A000F22CC /* ListNormalView.swift */; };
 		989C6E7128AD350C003FFD6D /* Wing in Frameworks */ = {isa = PBXBuildFile; productRef = 989C6E7028AD350C003FFD6D /* Wing */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +25,9 @@
 		98264CB328ACC8D600C1C39E /* WingDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WingDemo.entitlements; sourceTree = "<group>"; };
 		98264CB528ACC8D600C1C39E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		98264CBD28ACC8EE00C1C39E /* Wing */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Wing; path = ..; sourceTree = "<group>"; };
+		98453CB128ADD644007FBDD0 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		98453CB328ADD67A007FBDD0 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		9895332E28ADE55A000F22CC /* ListNormalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNormalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,9 @@
 			children = (
 				98264CAD28ACC8D500C1C39E /* WingDemoApp.swift */,
 				98264CAF28ACC8D500C1C39E /* ContentView.swift */,
+				98453CB128ADD644007FBDD0 /* GridView.swift */,
+				98453CB328ADD67A007FBDD0 /* ListView.swift */,
+				9895332E28ADE55A000F22CC /* ListNormalView.swift */,
 				98264CB128ACC8D600C1C39E /* Assets.xcassets */,
 				98264CB328ACC8D600C1C39E /* WingDemo.entitlements */,
 				98264CB428ACC8D600C1C39E /* Preview Content */,
@@ -162,7 +171,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98453CB428ADD67A007FBDD0 /* ListView.swift in Sources */,
 				98264CB028ACC8D500C1C39E /* ContentView.swift in Sources */,
+				9895332F28ADE55A000F22CC /* ListNormalView.swift in Sources */,
+				98453CB228ADD644007FBDD0 /* GridView.swift in Sources */,
 				98264CAE28ACC8D500C1C39E /* WingDemoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,7 +300,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WingDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = 3AKLS99DYZ;
+				DEVELOPMENT_TEAM = 5Z2ZYT45WT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -326,7 +338,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WingDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = 3AKLS99DYZ;
+				DEVELOPMENT_TEAM = 5Z2ZYT45WT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

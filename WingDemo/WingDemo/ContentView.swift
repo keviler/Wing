@@ -17,32 +17,25 @@ struct Model: Identifiable {
 }
 
 struct ContentView: View {
-    @State var models = [Model(name: "1", icon: "swift"),
-                        Model(name: "2", icon: "square.and.arrow.up"),
-                        Model(name: "3", icon: "swift"),
-                        Model(name: "4", icon: "square.and.arrow.down.fill"),
-                        Model(name: "5", icon: "swift"),
-                        Model(name: "6", icon: "swift"),
-                        Model(name: "7", icon: "swift")]
+
     var body: some View {
-        WGrid(models, cell: { model in
+        NavigationView {
             VStack {
-                Text(model.name)
-                Image(systemName: model.icon)
+                NavigationLink("grid") {
+                    GridView()
+                }
+                NavigationLink("list") {
+                    ListView()
+                }
+                .frame(height: 100)
+                NavigationLink("list") {
+                    ListNormalView()
+                }
+                .frame(height: 100)
+
             }
-            .frame(height: 100)
-            .frame(maxWidth: .infinity)
-            .background(Color.gray)
-            .cornerRadius(8, antialiased: true)
-        })
-        .layout(WGridLayout(columns: 4, innerSpacing: 20, lineSpacing: 10, spareSpace: false))
-        .gridHeaderView(gridHeaderView: {
-            Text("xxxx")
-                .frame(maxWidth: .infinity)
-                .padding(50)
-                .background(Color.blue)
-        })
-        .contentInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
+
+        }
     }
 }
 

@@ -33,55 +33,6 @@ struct ViewDidLoadModifier: ViewModifier {
 
 }
 
-struct FKCell: View {
-    var icon: String? = nil
-    var title: String
-    var subTitle: String? = nil
-    var body: some View {
-        HStack(spacing: 0) {
-            HStack(spacing: 0) {
-                if icon != nil {
-                    Image(icon!)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                }
-                Text(title)
-                    .font(Font.system(size: 17))
-                    .padding(.leading)
-                Spacer()
-                if subTitle != nil {
-                    Text(subTitle!)
-                        .font(.system(size: 15))
-                        .foregroundColor(Color(UIColor.secondaryLabel))
-                }
-                Image(systemName: "chevron.forward")
-                  .font(Font.system(.caption).weight(.bold))
-                  .foregroundColor(Color(UIColor.tertiaryLabel))
-            }
-        }
-        .padding(.vertical, 16)
-        .frame(maxWidth: .infinity)
-    }
-}
-
-extension FKCell {
-    func showDivider(_ show: Bool = true) -> some View {
-        Group {
-            if show {
-                VStack(spacing: 0) {
-                    self
-                    Divider()
-                        .padding(.leading)
-                        .padding(.leading, 30)
-                }
-            } else {
-                self
-            }
-        }
-    }
-}
-
-
 //struct ScrollView<Content: View>: View {
 //    let axes: Axis.Set
 //    let showsIndicators: Bool
