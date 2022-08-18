@@ -29,12 +29,12 @@ struct GridView: View {
             .cornerRadius(8, antialiased: true)
         })
         .layout(WGridLayout(columns: 4, innerSpacing: 20, lineSpacing: 10, spareSpace: false))
-        .gridHeaderView(gridHeaderView: {
+        .headerView {
             Text("xxxx")
                 .frame(maxWidth: .infinity)
                 .padding(50)
                 .background(Color.blue)
-        })
+        }
         .contentInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
     }
 }

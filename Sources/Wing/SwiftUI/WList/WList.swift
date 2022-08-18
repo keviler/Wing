@@ -260,12 +260,12 @@ public extension WList {
 
 
 public extension WList {
-    func headerView<HeaderView: View>(@ViewBuilder headerView: ()->HeaderView) -> Self {
+    func headerView<HeaderView: View>(@ViewBuilder _ headerView: ()->HeaderView) -> Self {
         var newSelf = self
         newSelf.headerView = AnyView(headerView())
         return newSelf
     }
-    func footerView<FooterView: View>(@ViewBuilder footerView: ()->FooterView) -> Self {
+    func footerView<FooterView: View>(@ViewBuilder _ footerView: ()->FooterView) -> Self {
         var newSelf = self
         newSelf.footerView = AnyView(footerView())
         return newSelf

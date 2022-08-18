@@ -11,8 +11,7 @@ import Algorithms
 @available(iOS 13.0, OSX 10.15, *)
 public struct WGrid<Data, Cell: View,
                         Header: View,
-                        Footer: View,
-                        GridHeaderView: View>: View where Data: RandomAccessCollection, Data.Element: WSectional, Data.Element.SectionKey : Hashable, Data.Element.Items: RandomAccessCollection, Data.Element.Items.Element: Identifiable {
+                        Footer: View>: View where Data: RandomAccessCollection, Data.Element: WSectional, Data.Element.SectionKey : Hashable, Data.Element.Items: RandomAccessCollection, Data.Element.Items.Element: Identifiable {
     private let axes: Axis.Set
     private let showIndicators: Bool
     private var layout: WGridLayout = WGridLayout(columns: 3, innerSpacing: 10, lineSpacing: 10)
@@ -23,13 +22,14 @@ public struct WGrid<Data, Cell: View,
     private let cell: (Data.Element.Items.Element) -> Cell
     private let header: (Data.Element.SectionKey) -> Header
     private let footer: (Data.Element.SectionKey) -> Footer
-    private var gridHeaderView: GridHeaderView? = nil
+    private var headerView: AnyView? = nil
+    private var footerView: AnyView? = nil
 
   
     public var body : some View {
       GeometryReader { geometry in
         Group {
-          if !self.data.isEmpty || gridHeaderView != nil {
+          if !self.data.isEmpty || headerView != nil || footerView != nil {
               if self.isScrollEnabled {
                 ScrollView(axes,
                            showsIndicators: self.showIndicators) {
@@ -46,8 +46,8 @@ public struct WGrid<Data, Cell: View,
         Group {
             if axes == .vertical {
                 VStack(spacing: 0) {
-                    if let gridHeaderView = gridHeaderView {
-                        gridHeaderView
+                    if let headerView = headerView {
+                        headerView
                     }
                     ForEach(self.data, id: \.key) { section in
                         VStack(spacing: 0) {
@@ -57,6 +57,9 @@ public struct WGrid<Data, Cell: View,
                             footer(section.key)
                                 .frame(width: geometry.frame(in: .local).width)
                         }
+                    }
+                    if let footerView = footerView {
+                        footerView
                     }
                 }
             } else {
@@ -220,9 +223,14 @@ public extension WGrid {
 
 
 public extension WGrid {
-    func gridHeaderView(@ViewBuilder gridHeaderView: ()->GridHeaderView) -> Self {
+    func headerView<HeaderView: View>(@ViewBuilder _ headerView: ()->HeaderView) -> Self {
         var newSelf = self
-        newSelf.gridHeaderView = gridHeaderView()
+        newSelf.headerView = AnyView(headerView())
+        return newSelf
+    }
+    func footerView<FooterView: View>(@ViewBuilder _ footerView: ()->FooterView) -> Self {
+        var newSelf = self
+        newSelf.footerView = AnyView(footerView())
         return newSelf
     }
 }
