@@ -190,6 +190,67 @@ public extension WGrid {
     }
     
 }
+// init from [[]]
+public extension WGrid {
+    
+    init<Items>(_ axes: Axis.Set = .vertical,
+                showIndicators: Bool = true,
+                data: Items,
+                @ViewBuilder cell: @escaping (Items.Element.Element) -> Cell,
+                @ViewBuilder header: @escaping () -> Header,
+                @ViewBuilder footer: @escaping () -> Footer) where Items: RandomAccessCollection, Items.Element: RandomAccessCollection, Items.Element.Element: Identifiable, Data == Array<WSection<Items.Element>> {
+        self.init(axes,
+                  showIndicators: showIndicators,
+                  data: data.map({WSection(items: $0)}),
+                  cell: cell) { _ in
+            header()
+        } footer: { _ in
+            footer()
+        }
+
+    }
+
+    init<Items>(_ axes: Axis.Set = .vertical,
+                showIndicators: Bool = true,
+                data: Items,
+                @ViewBuilder cell: @escaping (Items.Element.Element) -> Cell) where Items: RandomAccessCollection, Items.Element: RandomAccessCollection, Items.Element.Element: Identifiable, Data == Array<WSection<Items.Element>>, Header == EmptyView, Footer == EmptyView {
+        self.init(axes,
+                  showIndicators: showIndicators,
+                  data: data,
+                  cell: cell,
+                  header: {EmptyView()},
+                  footer: {EmptyView()})
+            
+    }
+
+    init<Items>(_ axes: Axis.Set = .vertical,
+                showIndicators: Bool = true,
+                data: Items,
+                @ViewBuilder cell: @escaping (Items.Element.Element) -> Cell,
+                @ViewBuilder header: @escaping () -> Header) where Items: RandomAccessCollection, Items.Element: RandomAccessCollection, Items.Element.Element: Identifiable, Data == Array<WSection<Items.Element>>, Footer == EmptyView {
+        self.init(axes,
+                  showIndicators: showIndicators,
+                  data: data,
+                  cell: cell,
+                  header: header,
+                  footer: {EmptyView()})
+            
+    }
+    init<Items>(_ axes: Axis.Set = .vertical,
+                showIndicators: Bool = true,
+                data: Items,
+                @ViewBuilder cell: @escaping (Items.Element.Element) -> Cell,
+                @ViewBuilder footer: @escaping () -> Footer) where Items: RandomAccessCollection, Items.Element: RandomAccessCollection, Items.Element.Element: Identifiable, Data == Array<WSection<Items.Element>>, Header == EmptyView {
+        self.init(axes,
+                  showIndicators: showIndicators,
+                  data: data,
+                  cell: cell,
+                  header: {EmptyView()},
+                  footer: footer)
+            
+    }
+
+}
 
 public extension WGrid {
     init<Items>(_ items: Items,
