@@ -11,36 +11,36 @@ import Algorithms
 @available(iOS 13.0, OSX 10.15, *)
 public struct WGrid<Data, Cell: View,
                         Header: View,
-                        Footer: View>: View where Data: RandomAccessCollection, Data.Element: WSectional, Data.Element.SectionKey : Hashable, Data.Element.Items: RandomAccessCollection, Data.Element.Items.Element: Identifiable {
+                    Footer: View>: View where Data: RandomAccessCollection, Data.Element: WSectional, Data.Element.SectionKey : Hashable, Data.Element.Items: RandomAccessCollection, Data.Element.Items.Element: Identifiable {
     private let axes: Axis.Set
     private let showIndicators: Bool
     private var layout: WGridLayout = WGridLayout(columns: 3, innerSpacing: 10, lineSpacing: 10)
     private var isScrollEnabled: Bool = true
     private var contentInsects: EdgeInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-
+    
     private let data: Data
     private let cell: (Data.Element.Items.Element) -> Cell
     private let header: (Data.Element.SectionKey) -> Header
     private let footer: (Data.Element.SectionKey) -> Footer
     private var headerView: AnyView? = nil
     private var footerView: AnyView? = nil
-
-  
+    
+    
     public var body : some View {
-      GeometryReader { geometry in
-        Group {
-          if !self.data.isEmpty || headerView != nil || footerView != nil {
-              if self.isScrollEnabled {
-                ScrollView(axes,
-                           showsIndicators: self.showIndicators) {
-                  self.contentView(in: geometry)
+        GeometryReader { geometry in
+            Group {
+                if !self.data.isEmpty || headerView != nil || footerView != nil {
+                    if self.isScrollEnabled {
+                        ScrollView(axes,
+                                   showsIndicators: self.showIndicators) {
+                            self.contentView(in: geometry)
+                        }
+                    } else {
+                        self.contentView(in: geometry)
+                    }
                 }
-              } else {
-                  self.contentView(in: geometry)
-              }
             }
         }
-      }
     }
     private func contentView(in geometry: GeometryProxy) -> some View {
         Group {
@@ -53,7 +53,7 @@ public struct WGrid<Data, Cell: View,
                         VStack(spacing: 0) {
                             header(section.key)
                                 .frame(width: geometry.frame(in: .local).width)
-                            sectionView(for: section.items)
+                            sectionView(for: section.items, in: geometry)
                             footer(section.key)
                                 .frame(width: geometry.frame(in: .local).width)
                         }
@@ -66,12 +66,12 @@ public struct WGrid<Data, Cell: View,
                 
             }
         }
-   }
+    }
     private func chunkSection(_ sectionItems: Data.Element.Items, by size: Int) -> [[Data.Element.Items.Element]] {
         return sectionItems.chunks(ofCount: layout.columns).map(Array.init)
     }
     
-    private func sectionView(for items: Data.Element.Items) -> some View {
+    private func sectionView(for items: Data.Element.Items, in geometry: GeometryProxy) -> some View {
         Group {
             if layout.columns == 1 {
                 ForEach(items) { item in
@@ -81,7 +81,7 @@ public struct WGrid<Data, Cell: View,
             } else {
                 VStack(spacing: layout.lineSpacing) {
                     ForEach(0..<chunkSection(items, by: layout.columns).count, id: \.self) { index in
-                        rowView(for: chunkSection(items, by: layout.columns)[index])
+                        rowView(for: chunkSection(items, by: layout.columns)[index], in: geometry)
                     }
                 }
             }
@@ -89,17 +89,17 @@ public struct WGrid<Data, Cell: View,
         .padding(contentInsects)
     }
     
-    private func rowView(for elements: [Data.Element.Items.Element]) -> some View {
+    private func rowView(for elements: [Data.Element.Items.Element], in geometry: GeometryProxy) -> some View {
         HStack(spacing: layout.innerSpacing) {
             if layout.spareSpace || elements.count == layout.columns {
-                spareSpaceRowView(for: elements)
+                spareSpaceRowView(for: elements, in: geometry)
             } else {
-                stretchingRowView(for: elements)
+                stretchingRowView(for: elements, in: geometry)
             }
         }
     }
-
-    private func spareSpaceRowView(for elements: [Data.Element.Items.Element]) -> some View {
+    
+    private func spareSpaceRowView(for elements: [Data.Element.Items.Element], in geometry: GeometryProxy) -> some View {
         Group {
             ForEach(elements) { element in
                 cell(element)
@@ -113,24 +113,22 @@ public struct WGrid<Data, Cell: View,
             }
         }
     }
-    private func stretchingRowView(for elements: [Data.Element.Items.Element]) -> some View {
-        GeometryReader { proxy in
-            HStack(spacing: layout.innerSpacing) {
-                ForEach(0..<elements.count - 1) { index in
-                    cell(elements[index])
-                        .frame(width: widthForItem(for: elements, in: proxy))
-                }
-                if let last = elements.last {
-                    cell(last)
-                        .frame(maxWidth: .infinity)
-                }
+    private func stretchingRowView(for elements: [Data.Element.Items.Element], in geometry: GeometryProxy) -> some View {
+        Group {
+            ForEach(0..<elements.count - 1) { index in
+                cell(elements[index])
+                    .frame(width: widthForItem(for: elements, in: geometry))
+            }
+            if let last = elements.last {
+                cell(last)
+                    .frame(maxWidth: .infinity)
+            }
         }
-    }
     }
 
     private func widthForItem(for elements: [Data.Element.Items.Element], in proxy: GeometryProxy) -> CGFloat {
-        let width = proxy.frame(in: .local).width
-        return (width  - CGFloat((layout.columns - 1)) * layout.innerSpacing).cgFloat / layout.columns.cgFloat
+        let width = proxy.frame(in: .global).width
+        return (width  - CGFloat((layout.columns - 1)) * layout.innerSpacing - contentInsects.leading - contentInsects.trailing).cgFloat / layout.columns.cgFloat
     }
 
 }

@@ -9,16 +9,23 @@ import SwiftUI
 import Wing
 
 struct GridView: View {
-    @State var models = [Model(name: "1", icon: "swift"),
-                        Model(name: "2", icon: "square.and.arrow.up"),
-                        Model(name: "3", icon: "swift"),
-                        Model(name: "4", icon: "square.and.arrow.down.fill"),
-                        Model(name: "5", icon: "swift"),
-                        Model(name: "6", icon: "swift"),
-                        Model(name: "7", icon: "swift")]
+    @State var models = [[Model(name: "1", icon: "swift"),
+                          Model(name: "2", icon: "square.and.arrow.up"),
+                          Model(name: "3", icon: "swift"),
+                          Model(name: "4", icon: "square.and.arrow.down.fill"),
+                          Model(name: "5", icon: "swift"),
+                          Model(name: "6", icon: "swift"),
+                          Model(name: "7", icon: "swift")],
+                         [Model(name: "8", icon: "swift"),
+                                             Model(name: "9", icon: "square.and.arrow.up"),
+                                             Model(name: "110", icon: "swift"),
+                                             Model(name: "3123", icon: "square.and.arrow.down.fill"),
+                                             Model(name: "4214", icon: "swift"),
+                                             Model(name: "54", icon: "swift"),
+                                             Model(name: "665", icon: "swift")]]
 
     var body: some View {
-        WGrid(models, cell: { model in
+        WGrid(data: models, cell: { model in
             VStack {
                 Text(model.name)
                 Image(systemName: model.icon)
@@ -27,6 +34,8 @@ struct GridView: View {
             .frame(maxWidth: .infinity)
             .background(Color.gray)
             .cornerRadius(8, antialiased: true)
+        }, header: {
+            Text("sasasa")
         })
         .layout(WGridLayout(columns: 4, innerSpacing: 20, lineSpacing: 10, spareSpace: false))
         .headerView {
