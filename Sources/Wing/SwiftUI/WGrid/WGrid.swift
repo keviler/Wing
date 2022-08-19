@@ -42,28 +42,40 @@ public struct WGrid<Data, Cell: View,
             }
         }
     }
+
     private func contentView(in geometry: GeometryProxy) -> some View {
         Group {
             if axes == .vertical {
-                VStack(spacing: 0) {
-                    if let headerView = headerView {
-                        headerView
+                if #available(iOS 14.0, *) {
+                    LazyVStack(spacing: 0) {
+                        verticalContentView(in: geometry)
                     }
-                    ForEach(self.data, id: \.key) { section in
-                        VStack(spacing: 0) {
-                            header(section.key)
-                                .frame(width: geometry.frame(in: .local).width)
-                            sectionView(for: section.items, in: geometry)
-                            footer(section.key)
-                                .frame(width: geometry.frame(in: .local).width)
-                        }
-                    }
-                    if let footerView = footerView {
-                        footerView
+                } else {
+                    VStack(spacing: 0) {
+                        verticalContentView(in: geometry)
                     }
                 }
             } else {
                 
+            }
+        }
+    }
+    private func verticalContentView(in geometry: GeometryProxy) -> some View  {
+        Group {
+            if let headerView = headerView {
+                headerView
+            }
+            ForEach(self.data, id: \.key) { section in
+                VStack(spacing: 0) {
+                    header(section.key)
+                        .frame(width: geometry.frame(in: .local).width)
+                    sectionView(for: section.items, in: geometry)
+                    footer(section.key)
+                        .frame(width: geometry.frame(in: .local).width)
+                }
+            }
+            if let footerView = footerView {
+                footerView
             }
         }
     }
