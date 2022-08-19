@@ -46,14 +46,8 @@ public struct WGrid<Data, Cell: View,
     private func contentView(in geometry: GeometryProxy) -> some View {
         Group {
             if axes == .vertical {
-                if #available(iOS 14.0, *) {
-                    LazyVStack(spacing: 0) {
-                        verticalContentView(in: geometry)
-                    }
-                } else {
-                    VStack(spacing: 0) {
-                        verticalContentView(in: geometry)
-                    }
+                VStack(spacing: 0) {
+                    verticalContentView(in: geometry)
                 }
             } else {
                 
