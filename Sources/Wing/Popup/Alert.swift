@@ -108,6 +108,8 @@ public extension WAlert {
                 }
             content()
                 .contentShape(Rectangle())
+                .onTapGesture {
+                }
         }
 
         if let rootViewController = UIWindow.key?.rootViewController {
