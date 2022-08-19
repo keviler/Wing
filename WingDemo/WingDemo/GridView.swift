@@ -36,7 +36,15 @@ struct GridView: View {
             .background(Color.gray)
             .cornerRadius(8, antialiased: true)
             .onTapGesture {
-                isPresented.toggle()
+                WAlert.show {
+                    VStack {
+                        Image(systemName: "swift")
+                        Text("swift")
+                    }
+                    .padding(100)
+                    .background(Color.red)
+                    .cornerRadius(8)
+                }
             }
         }, header: {
             Text("sasasa")

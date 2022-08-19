@@ -7,7 +7,25 @@
 
 import SwiftUI
 
-struct WAlert<ContentView, Background>: ViewModifier where ContentView: View, Background: View {
+final class WAlertManager {
+    static let shared = WAlertManager()
+    var alerts: [UIViewController] = []
+}
+
+final class WAlertController<Content>: UIHostingController<Content> where Content: View {
+    override init(rootView: Content) {
+        super.init(rootView: rootView)
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .clear
+    }
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+public struct WAlert<ContentView, Background>: ViewModifier where ContentView: View, Background: View {
     @Binding var isPresented: Bool
     private var contentView: ContentView
     private var background: Background
@@ -69,4 +87,61 @@ public extension View {
                         background: background))
     }
 
+}
+
+public extension WAlert {
+    @discardableResult
+    static func show(@ViewBuilder _ content: ()->ContentView) -> some View where Background == Color {
+        return show(content) {
+            Color.black.opacity(0.6)
+        }
+    }
+
+    @discardableResult
+    static func show(@ViewBuilder _ content: ()->ContentView, @ViewBuilder background: ()->Background) -> some View {
+        let contentView = ZStack(alignment: .center) {
+            background()
+                .edgesIgnoringSafeArea(.all)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    WAlert.dismiss()
+                }
+            content()
+                .contentShape(Rectangle())
+        }
+
+        if let rootViewController = UIWindow.key?.rootViewController {
+            let alertController = WAlertController(rootView: contentView)
+            rootViewController.addChild(alertController)
+            rootViewController.view.addSubview(alertController.view)
+            rootViewController.view.bringSubviewToFront(alertController.view)
+            WAlertManager.shared.alerts.append(alertController)
+            alertController.view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                alertController.view.leftAnchor.constraint(equalTo: rootViewController.view.leftAnchor),
+                alertController.view.rightAnchor.constraint(equalTo: rootViewController.view.rightAnchor),
+                alertController.view.topAnchor.constraint(equalTo: rootViewController.view.topAnchor),
+                alertController.view.bottomAnchor.constraint(equalTo: rootViewController.view.bottomAnchor)
+            ])
+        }
+        return contentView
+    }
+    
+}
+
+public extension WAlert {
+    static func dismiss() {
+        if let alertController = WAlertManager.shared.alerts.popLast() {
+            alertController.removeFromParent()
+            alertController.view.removeFromSuperview()
+        }
+    }
+    
+    static func dismissAll() {
+        WAlertManager.shared.alerts.forEach { alertController in
+            alertController.removeFromParent()
+            alertController.view.removeFromSuperview()
+        }
+        WAlertManager.shared.alerts = []
+    }
 }
