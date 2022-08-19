@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIWindow {
-    class var key: UIWindow? {
+    @objc class var key: UIWindow? {
         UIApplication.shared.connectedScenes
                 .filter({$0.activationState == .foregroundActive})
                 .map({$0 as? UIWindowScene})
@@ -17,7 +17,7 @@ public extension UIWindow {
                 .first?.windows
                 .filter({$0.isKeyWindow}).first
     }
-    class var topViewController: UIViewController? {
+    @objc class var topViewController: UIViewController? {
         guard let rootViewController = key?.rootViewController else { return nil }
         if let controller = (rootViewController as? UINavigationController)?.visibleViewController {
             return controller
@@ -29,7 +29,7 @@ public extension UIWindow {
             return rootViewController
         }
     }
-    class var topNavigationController: UINavigationController? {
+    @objc class var topNavigationController: UINavigationController? {
         topViewController?.navigationController
     }
 }
