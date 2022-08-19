@@ -22,10 +22,11 @@ struct WAlert<ContentView, Background>: ViewModifier where ContentView: View, Ba
     }
     
     public func body(content: Content) -> some View {
-        ZStack {
+        ZStack(alignment: .center) {
             content
             if isPresented {
                 alertView
+                    .zIndex(Double.infinity)
             }
         }
     }

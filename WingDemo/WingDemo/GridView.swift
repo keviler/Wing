@@ -23,6 +23,7 @@ struct GridView: View {
                                              Model(name: "4214", icon: "swift"),
                                              Model(name: "54", icon: "swift"),
                                              Model(name: "665", icon: "swift")]]
+    @State var isPresented = false
 
     var body: some View {
         WGrid(data: models, cell: { model in
@@ -34,6 +35,9 @@ struct GridView: View {
             .frame(maxWidth: .infinity)
             .background(Color.gray)
             .cornerRadius(8, antialiased: true)
+            .onTapGesture {
+                isPresented.toggle()
+            }
         }, header: {
             Text("sasasa")
         })
@@ -45,6 +49,15 @@ struct GridView: View {
                 .background(Color.blue)
         }
         .contentInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
+        .wAlert(isPresented: $isPresented) {
+            VStack {
+                Image(systemName: "swift")
+                Text("swift")
+            }
+            .padding(50)
+            .background(Color.red)
+            .cornerRadius(8)
+        }
     }
 }
 
